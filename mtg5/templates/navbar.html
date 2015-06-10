@@ -1,0 +1,28 @@
+<div id="navbar">
+	<label for="playerControl" class="pull-left">Player:</label>
+	<select id="playerControl" class="inline-form-control pull-left">
+		{% for player in players %}
+	  <option>{{player}}</option>
+		{% endfor %}
+	</select>
+	<label for="colorControl" class="pull-left">Color:</label>
+	<select id="colorControl" class="inline-form-control pull-left">
+		{% for color in colors %}
+	  <option>{{color}}</option>
+		{% endfor %}
+	</select>
+	<button id="submitButton" type="button" class="btn btn-success btn-sm pull-left" onClick="submit()">Update Filter</button>
+	<script>
+		function submit() {
+			var player = $("#playerControl").val();
+			var color = $("#colorControl").val();
+			$.ajax({
+				url: "../getdata/" + player + "/" + color,
+				success: function(data) {
+					alert(data);							    
+					//$('#graph').html(data);
+				}
+			});
+		}
+	</script>
+</div>
