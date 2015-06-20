@@ -57,16 +57,36 @@ tr:hover {
 	background: #1F3D7A;
 }
 
+#graph {
+	height: 500px;
+	margin-top: 10px;
+	margin-top: 3vh;
+}
 
 #navbar {
 	background-image:-moz-linear-gradient(30% 100% 90deg, #111, #555);
 	background-image:-webkit-gradient(linear, left top, left bottom, color-stop(30%, #555), color-stop(100%, #111));
 	height: 25px;
 	margin-bottom: 10px;
-	height:7vw;
-	margin-bottom: 1.3vh;
+	padding: 15px;
 }
 
+@media screen and (max-device-width: 450px){
+#navbar button {
+	margin-top: 15px;
+}
+}
+.brand {
+	float: left;
+	display: block;
+	color: #888;
+	font: bold 14pt Trebuchet MS, Helvetica, sans-serif;
+	font: bold 6vw Trebuchet MS, Helvetica, sans-serif;
+	width:23%;
+	padding-left: 4%;
+	padding-left: 3vw;
+	padding-top: 2px;
+}
 
 .btn-danger {
 	background: #CC0000;
@@ -86,7 +106,7 @@ tr:hover {
 	color: #fff;
 	z-index: 1000;
 	border-bottom: 1px solid #555;
-	padding:20px;
+	padding: 15px;
 }
 .modal-body {
 	height: 160px;

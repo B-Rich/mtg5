@@ -12,15 +12,28 @@
 		{% endfor %}
 	</select>
 	<button id="submitButton" type="button" class="btn btn-success btn-sm pull-left" onClick="submit()">Update Filter</button>
-	<script>
+	<script type="text/javascript">
+		function process(data) {
+			var s = "";
+			var cards = JSON.parse(data);
+		    console.log(cards);
+			for (var card in cards) {
+				console.log(card);
+				s += "<img src=\"" + cards[card][2] + "\" alt=\"sucky card\">";
+			}
+			return s;
+		}
+
 		function submit() {
 			var player = $("#playerControl").val();
 			var color = $("#colorControl").val();
 			$.ajax({
 				url: "../getdata/" + player + "/" + color,
 				success: function(data) {
-					alert(data);							    
-					//$('#graph').html(data);
+					$('#content').html(process(data));
+				},
+				failure: function() {
+					alert ("Try holding your phone over your head, sometimes the gyroscope in your phone does wierd things to wireless antnenas!");
 				}
 			});
 		}

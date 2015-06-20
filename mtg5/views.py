@@ -8,6 +8,7 @@ from django.views.decorators.csrf import csrf_exempt
 from mtg5.settings import STATIC_URL
 from oauth2client.client import SignedJwtAssertionCredentials
 import random, json, urllib, gspread
+from mtg5.models import Card
 
 
 def index(request):
@@ -61,14 +62,30 @@ def getData(request,player,color):
 	allCounts = worksheet.col_values(playerID)
 	myNames = list()
 	myCounts = list()
+	myurls = list()
 	index = masterIndex()
+	imgurl = "http://magiccards.info/scans/en/"
 	print("Sorting...")
 	for rng in index[color]:
 		myNames.extend(allNames[rng[0]-1:rng[1]-1])
 		myCounts.extend(allCounts[rng[0]-1:rng[1]-1])
-	cards = zip(myNames,myCounts)
-	print(cards)
-	return HttpResponse(cards)
+	i=0	
+	while i<len(myCounts):
+		print (i)
+		if myCounts[i] is None:
+			myNames.pop(i)
+			myCounts.pop(i)
+		else:
+			print(myNames[i])
+			card = Card.objects.filter(name=myNames[i])[0]
+			set = card.setName
+			number = card.number
+			myurls.append(imgurl+set.lower()+"/"+str(number)+".jpg")
+			i=i+1
+
+	cards = zip(myNames,myCounts,myurls)
+		
+	return HttpResponse(json.dumps(cards))
 
 def loadSheetAsList(sheetName):
 	workbook = loadXLS()
