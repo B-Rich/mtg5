@@ -7,7 +7,7 @@ from django.utils.timezone import utc
 from django.views.decorators.csrf import csrf_exempt
 from mtg5.settings import STATIC_URL
 from oauth2client.client import SignedJwtAssertionCredentials
-import random, json, urllib, gspread
+import random, json, urllib, gspread, os
 from mtg5.models import Card
 
 
@@ -97,7 +97,7 @@ def loadSheetAsList(sheetName):
 
 def loadXLS():
 	# Gather Oauth credentials
-	json_key = json.load(open('Oauth.json'))
+	json_key = json.load(os.environ['oauthkey'])
 	scope = ['https://spreadsheets.google.com/feeds']
 	credentials = SignedJwtAssertionCredentials(json_key['client_email'], json_key['private_key'], scope)
 	gc = gspread.authorize(credentials)
