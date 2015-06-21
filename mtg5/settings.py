@@ -12,7 +12,7 @@ https://docs.djangoproject.com/en/1.8/ref/settings/
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 import os
-
+Heroku = os.environ['Heroku']
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
 PROJECT_ROOT = os.path.abspath(os.path.dirname(__file__))
@@ -126,3 +126,18 @@ STATICFILES_FINDERS = (
     'django.contrib.staticfiles.finders.AppDirectoriesFinder',
 #    'django.contrib.staticfiles.finders.DefaultStorageFinder',
 )
+
+if Heroku:
+	import os
+	# Parse database configuration from $DATABASE_URL
+	import dj_database_url
+	DATABASES['default'] =  dj_database_url.config()
+	SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
+	# Allow all host headers
+	ALLOWED_HOSTS = ['*']
+	# Static asset configuration
+	BASE_DIR = os.path.dirname(os.path.abspath(__file__))
+	STATIC_ROOT = 'staticfiles'
+	STATIC_URL = '/static/'
+
+	STATICFILES_DIRS = (os.path.join(BASE_DIR, 'static'),)
