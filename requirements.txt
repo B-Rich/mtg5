@@ -1,8 +1,12 @@
 cffi==1.0.2.post2
+dj-database-url==0.3.0
+dj-static==0.0.6
 cryptography==0.9
 Django==1.8.2
+django-toolbelt==0.0.1
 enum34==1.0.4
 gspread==0.2.5
+gunicorn==19.3.0
 httplib2==0.9.1
 idna==2.0
 ipaddress==1.0.7
