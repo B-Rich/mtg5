@@ -97,7 +97,7 @@ def loadSheetAsList(sheetName):
 
 def loadXLS():
 	# Gather Oauth credentials
-	json_key = json.load(os.environ['oauthkey'])
+	json_key = json.loads(os.environ['oauthkey'])
 	scope = ['https://spreadsheets.google.com/feeds']
 	credentials = SignedJwtAssertionCredentials(json_key['client_email'], json_key['private_key'], scope)
 	gc = gspread.authorize(credentials)
